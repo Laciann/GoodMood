@@ -1,11 +1,13 @@
 {
-  "name": "dang-thats-delicious",
+  "name": "good-food-good-mood",
   "version": "0.0.0",
   "private": true,
   "engines": {
     "node": ">= 7.6.0"
   },
   "scripts": {
+    "live": "nodemon server.js",
+    "dev": "nodemon",
     "prod": "node ./start.js",
     "watch": "nodemon ./start.js --ignore public/",
     "start": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name",
