@@ -1,1 +1,1 @@
-Just a test read me file, I guess. On a side note... Kshitiz still hasn't coded yet. This read me file will when Kshitiz Chaudhary(not Gautam) writes his first line of code. 
+Just a test read me file, I guess. On a side note... Kshitiz still hasn't coded yet. This read me file will change when Kshitiz Chaudhary(not Gautam) writes his first line of code. 
