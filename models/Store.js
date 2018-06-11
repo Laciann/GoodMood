@@ -1,10 +1,7 @@
-// mongoose is the package we use to interface with mongodb
 const mongoose = require('mongoose');
-// we can use bluebird, but we are using built in ES6 promise (aync/await)
 mongoose.Promise = global.Promise;
-// library named slugs, used for making url friendly slugs
 const slug = require('slugs');
-// time to make our schema
+
 const storeSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -16,19 +13,35 @@ const storeSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  tags: [String]
+  tags: [String],
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  location: {
+    type: {
+      type: String,
+      default: 'Point'
+    },
+    coordinates: [{
+      type: Number,
+      required: 'You must supply coordinates!'
+    }],
+    address: {
+      type: String,
+      required: 'You must supply an address!'
+    }
+  }
 });
 
-// autogenerate slug 
-storeSchema.pre('save', function (next) {
+storeSchema.pre('save', function(next) {
   if (!this.isModified('name')) {
-    next(); // skip
-    return; // stops the function from running
+    next(); // skip it
+    return; // stop this function from running
   }
-  // TODO make more resiliant so slugs are unique
   this.slug = slug(this.name);
   next();
+  // TODO make more resiliant so slugs are unique
 });
 
-//  export the schema
 module.exports = mongoose.model('Store', storeSchema);

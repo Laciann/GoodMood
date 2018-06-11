@@ -20,7 +20,7 @@ html
                   span #{item.title}
           .nav__section.nav__section--search
             .search
-              input.search__input(type="text" placeholder="Search..." name="search")
+              input.search__input(type="text" placeholder="Coffee, beer..." name="search")
               .search__results
           .nav__section.nav__section--user
             if user
@@ -48,6 +48,7 @@ html
                   button.flash__remove(onClick="this.parentElement.remove()") &times;
     .content
       block content
+        p This is the default!
 
     block scripts
       script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.MAP_KEY}&libraries=places`)
