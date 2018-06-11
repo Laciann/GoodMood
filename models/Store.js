@@ -22,10 +22,10 @@ const storeSchema = new mongoose.Schema({
 // autogenerate slug
 storeSchema.pre('save', function (next) {
   if (!this.isModified('name')) {
-    next();
-    return;
+    next(); // skip
+    return; // stops the function from running
   }
-
+  // TODO make more resiliant so slugs are unique
   this.slug = slug(this.name);
   next();
 });
