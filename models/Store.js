@@ -19,7 +19,7 @@ const storeSchema = new mongoose.Schema({
   tags: [String]
 });
 
-// autogenerate slug
+// autogenerate slug 
 storeSchema.pre('save', function (next) {
   if (!this.isModified('name')) {
     next(); // skip
