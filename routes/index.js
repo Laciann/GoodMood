@@ -13,6 +13,14 @@ router.get('/add', authController.isLoggedIn, storeController.addStore);
 router.get('/admin', function (req, res) {
   res.render('admin');
 });
+router.get('/LoginRoleRedirect', function (req, res) {
+  if (req.user.isAdmin === true) {
+    res.redirect('/admin');
+  } else {
+    res.redirect('/');
+  }
+});
+
 router.post('/add',
   storeController.upload,
   catchErrors(storeController.resize),

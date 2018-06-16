@@ -7,7 +7,7 @@ const uuid = require('uuid');
 
 const multerOptions = {
   storage: multer.memoryStorage(),
-  fileFilter(req, file, next) {
+  fileFilter (req, file, next) {
     const isPhoto = file.mimetype.startsWith('image/');
     if (isPhoto) {
       next(null, true);
@@ -98,19 +98,20 @@ const confirmOwner = (store, user) => {
   }
 };
 
-
 exports.editStore = async (req, res) => {
+  if (req.user.isAdmin === true) {
   // 1. Find the store given the ID
-  const store = await Store.findOne({
-    _id: req.params.id
-  });
-  // 2. confirm they are the owner of the store
-  confirmOwner(store, req.user);
-  // 3. Render out the edit form so the user can update their store
-  res.render('editStore', {
-    title: `Edit ${store.name}`,
-    store
-  });
+    const store = await Store.findOne({
+      _id: req.params.id
+    });
+    // 2. confirm they are the owner of the store
+    confirmOwner(store, req.user);
+    // 3. Render out the edit form so the user can update their store
+    res.render('editStore', {
+      title: `Edit ${store.name}`,
+      store
+    });
+  }
 };
 
 exports.updateStore = async (req, res) => {
@@ -152,7 +153,6 @@ exports.getStoresByTag = async (req, res) => {
   });
   const [tags, stores] = await Promise.all([tagsPromise, storesPromise]);
 
-
   res.render('tag', {
     tags,
     title: 'Tags',
@@ -160,7 +160,6 @@ exports.getStoresByTag = async (req, res) => {
     stores
   });
 };
-
 
 exports.searchStores = async (req, res) => {
   const stores = await Store
@@ -242,4 +241,4 @@ exports.getTopStores = async (req, res) => {
     stores,
     title: '⭐ Top Stores!'
   });
-}
+};
