@@ -11,7 +11,7 @@ router.get('/stores', catchErrors(storeController.getStores));
 router.get('/stores/page/:page', catchErrors(storeController.getStores));
 router.get('/add', authController.isLoggedIn, storeController.addStore);
 router.get('/admin', function (req, res) {
-  res.send('GET request to the homepage');
+  res.render('admin');
 });
 
 router.post('/add',

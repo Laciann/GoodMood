@@ -1,0 +1,38 @@
+html
+  head
+    style
+      include admin.css
+    meta(charset='utf-8')
+    title Admin Page
+    link(rel='stylesheet', href='normalize.css', charset='utf-8')
+    link(rel='stylesheet', href='admin--test.css', charset='utf-8')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
+  body.admin
+    header.admin__statusbar.flex--center
+      span.home
+        i.fa.fa-home
+        | Home
+      span#username
+        i.fa.fa-user
+        | Tycho Atsma
+    nav.admin__sidepanel
+      ul
+        li
+          i.fa.fa-file-text-o
+          li.nav__item: a.nav__link(href="/add", class=(currentPath.startsWith('/editStore') ? 'nav__link--active' : '')) Register
+          | Add Store
+        li
+          i.fa.fa-pencil-square-o
+          | Modify Store
+        li
+          i.fa.fa-times-circle-o
+          | Delete Book
+        li
+          i.fa.fa-plus-square-o
+          | Add Item
+    //
+      <main class="admin__main">
+      <h1>
+      Document Title
+      </h1>
+      </main>
