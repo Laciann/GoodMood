@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title Admin
+    link(rel='stylesheet', href='/dist/style.css')
+    link(rel="shortcut icon" type="image/png" href="/images/icons/doughnut.png")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+  body
+    block header
+      header.top
+        nav.nav
+          .nav__section.nav__section--pages
+            li.nav__item
+               a.nav__link.nav__link--logo(href="/stores/") Go to main site
+               li.nav__item
+               a.nav__link.nav__link--logo(href="/add") Add Store
+               li.nav__item
+               a.nav__link.nav__link--logo(href="/stores") Edit Store
+
+    .content
+      block content
+        p This is the default!
+
+    block scripts
+      script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.MAP_KEY}&libraries=places`)
+      script(src="/dist/App.bundle.js")
