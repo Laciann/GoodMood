@@ -17,7 +17,7 @@ const javascript = {
   test: /\.(js)$/, // see how we match anything that ends in `.js`? Cool
   use: [{
     loader: 'babel-loader',
-    options: { presets: ['es2015'] } // this is one way of passing options
+    options: { presets: ['env'] } // this is one way of passing options
   }],
 };
 
@@ -28,7 +28,7 @@ const javascript = {
 const postcss = {
   loader: 'postcss-loader',
   options: {
-    plugins () { return [autoprefixer({ browsers: 'last 3 versions' })]; }
+    plugins() { return [autoprefixer({ browsers: 'last 3 versions' })]; }
   }
 };
 
