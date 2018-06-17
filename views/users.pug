@@ -1,0 +1,7 @@
+extends admin
+  h1 UserList
+  p Below you will see list of users.
+  br
+  each user in users
+    p= user.name + " " + user.surname + "  "
+    a(href='/deleteuser/' + user.id) Delete

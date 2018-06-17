@@ -3,6 +3,8 @@ html
   head
     title Admin
     link(rel='stylesheet', href='/dist/style.css')
+   
+    
     link(rel="shortcut icon" type="image/png" href="/images/icons/doughnut.png")
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
@@ -16,10 +18,13 @@ html
                a.nav__link.nav__link--logo(href="/add") Add Store
                li.nav__item
                a.nav__link.nav__link--logo(href="/stores") Edit Store
+               li.nav__item
+               a.nav__link.nav__link--logo(href="/users") Users
+
 
     .content
       block content
-        p This is the default!
+       
 
     block scripts
       script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.MAP_KEY}&libraries=places`)

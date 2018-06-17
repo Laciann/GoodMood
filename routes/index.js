@@ -1,25 +1,36 @@
+const mongoose = require('mongoose');
+const user = mongoose.model('User');
 const express = require('express');
 const router = express.Router();
 const storeController = require('../controllers/storeController');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const reviewController = require('../controllers/reviewController');
-const { catchErrors } = require('../handlers/errorHandlers');
+const {
+  catchErrors
+} = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(storeController.getStores));
 router.get('/stores', catchErrors(storeController.getStores));
 router.get('/stores/page/:page', catchErrors(storeController.getStores));
-router.get('/add', authController.isLoggedIn, storeController.addStore);
+router.get('/add', storeController.addStore);
+router.get('/users', userController.User);
+//  admin page ko  lagi lyang lyang
 router.get('/admin', function (req, res) {
-  res.render('admin');
+  res.render('adminHome');
 });
+// users
+
+// request object bata admin route handle gareko
 router.get('/LoginRoleRedirect', function (req, res) {
-  if (req.user.isAdmin === true) {
-    res.redirect('/admin');
+   var negate = (!req.user.isAdmin) 
+  if (negate  === false) {
+    res.redirect('admin');
   } else {
     res.redirect('/');
   }
 });
+
 
 router.post('/add',
   storeController.upload,

@@ -3,11 +3,15 @@ const User = mongoose.model('User');
 const promisify = require('es6-promisify');
 
 exports.loginForm = (req, res) => {
-  res.render('login', { title: 'Login' });
+  res.render('login', {
+    title: 'Login'
+  });
 };
 
 exports.registerForm = (req, res) => {
-  res.render('register', { title: 'Register' });
+  res.render('register', {
+    title: 'Register'
+  });
 };
 
 exports.validateRegister = (req, res, next) => {
@@ -26,21 +30,30 @@ exports.validateRegister = (req, res, next) => {
   const errors = req.validationErrors();
   if (errors) {
     req.flash('error', errors.map(err => err.msg));
-    res.render('register', { title: 'Register', body: req.body, flashes: req.flash() });
+    res.render('register', {
+      title: 'Register',
+      body: req.body,
+      flashes: req.flash()
+    });
     return; // stop the fn from running
   }
   next(); // there were no errors!
 };
 
 exports.register = async (req, res, next) => {
-  const user = new User({ email: req.body.email, name: req.body.name });
+  const user = new User({
+    email: req.body.email,
+    name: req.body.name
+  });
   const register = promisify(User.register, User);
   await register(user, req.body.password);
   next(); // pass to authController.login
 };
 
 exports.account = (req, res) => {
-  res.render('account', { title: 'Edit Your Account' });
+  res.render('account', {
+    title: 'Edit Your Account'
+  });
 };
 
 exports.updateAccount = async (req, res) => {
@@ -49,11 +62,25 @@ exports.updateAccount = async (req, res) => {
     email: req.body.email
   };
 
-  const user = await User.findOneAndUpdate(
-    { _id: req.user._id },
-    { $set: updates },
-    { new: true, runValidators: true, context: 'query' }
-  );
+  const user = await User.findOneAndUpdate({
+    _id: req.user._id
+  }, {
+    $set: updates
+  }, {
+    new: true,
+    runValidators: true,
+    context: 'query'
+  });
   req.flash('success', 'Updated the profile!');
   res.redirect('back');
+};
+
+exports.User = (req, res) => {
+  User.find({}, function (err, users) {
+    if (err) {
+      res.send('Something went wrong!');
+      next();
+    }
+    res.json(users);
+  });
 };
