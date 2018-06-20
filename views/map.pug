@@ -3,8 +3,14 @@ extends layout
 block content
   .inner
     h2= title
-    .map
-      .autocomplete
-        input.autocomplete__input(type="text" placeholder="Search for Anything" name="geolocate")
-      #map
-        p Loading Map...
+    script.
+      var daddr = window.location.search.slice(1);
+      if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(data){
+      if (data.coords) {
+      window.location = 'https://maps.google.fr/maps?saddr=' + data.coords.latitude + ',' + data.coords.longitude + '&daddr=' + daddr;
+      }
+      });
+      }
+
+    
