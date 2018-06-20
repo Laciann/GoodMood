@@ -1,5 +1,8 @@
+
+
 const mongoose = require('mongoose');
 const user = mongoose.model('User');
+const Store = mongoose.model('Store');
 const express = require('express');
 const router = express.Router();
 const storeController = require('../controllers/storeController');
@@ -14,22 +17,35 @@ router.get('/', catchErrors(storeController.getStores));
 router.get('/stores', catchErrors(storeController.getStores));
 router.get('/stores/page/:page', catchErrors(storeController.getStores));
 router.get('/add', storeController.addStore);
-router.get('/users', userController.User);
+router.get('/red', function(req,res){
+  res.redirect(`/stores/${store._id}/edit`);
+});
+
+// load all users
+router.get('/users', function (req, res) {
+  user.find({}, function (err, users) {
+    res.render('users', { users: users });
+  });
+});
 //  admin page ko  lagi lyang lyang
 router.get('/admin', function (req, res) {
-  res.render('adminHome');
+  if (req.user.isAdmin === true) 
+    res.render('adminHome');
+  else
+    res.redirect('/404');
 });
 // users
 
 // request object bata admin route handle gareko
-router.get('/LoginRoleRedirect', function (req, res) {
-   var negate = (!req.user.isAdmin) 
-  if (negate  === false) {
-    res.redirect('admin');
-  } else {
+router.get('/LoginRole', authController.isLoggedIn, function(req,res) {
+  if (req.user.isAdmin === true) 
+    res.redirect('/admin');
+  else
     res.redirect('/');
-  }
-});
+ });
+
+
+
 
 
 router.post('/add',

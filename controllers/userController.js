@@ -75,12 +75,4 @@ exports.updateAccount = async (req, res) => {
   res.redirect('back');
 };
 
-exports.User = (req, res) => {
-  User.find({}, function (err, users) {
-    if (err) {
-      res.send('Something went wrong!');
-      next();
-    }
-    res.json(users);
-  });
-};
+

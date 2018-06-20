@@ -2,9 +2,20 @@ doctype html
 html
   head
     title Admin
+    style.
+      table{background: #fff;}
+      table, thead, tbody, tfoot, tr, td, th { 
+      text-align: center;
+      margin: auto;
+      border: 1px solid #dedede;
+      padding: 1rem;
+      width: 50%;}
+
+
     link(rel='stylesheet', href='/dist/style.css')
-   
-    
+    link(rel='stylesheet', href='/dist/button.css')
+
+
     link(rel="shortcut icon" type="image/png" href="/images/icons/doughnut.png")
     meta(name="viewport" content="width=device-width, initial-scale=1")
   body
@@ -19,7 +30,7 @@ html
                li.nav__item
                a.nav__link.nav__link--logo(href="/stores") Edit Store
                li.nav__item
-               a.nav__link.nav__link--logo(href="/users") Users
+               a.nav__link.nav__link--logo(href="users") Users
 
 
     .content

@@ -105,7 +105,7 @@ exports.editStore = async (req, res) => {
       _id: req.params.id
     });
     // 2. confirm they are the owner of the store
-    confirmOwner(store, req.user);
+    //confirmOwner(store, req.user);
     // 3. Render out the edit form so the user can update their store
     res.render('editStore', {
       title: `Edit ${store.name}`,
@@ -124,8 +124,8 @@ exports.updateStore = async (req, res) => {
     new: true, // return the new store instead of the old one
     runValidators: true
   }).exec();
-  req.flash('success', `Successfully updated <strong>${store.name}</strong>. <a href="/stores/${store.slug}">View Store →</a>`);
-  res.redirect(`/stores/${store._id}/edit`);
+  req.flash('success', `Successfully updated <strong>${store.name}</strong>. <a href="/store/${store.slug}">View Store →</a>`);
+  res.redirect(`/red`);
   // Redriect them the store and tell them it worked
 };
 

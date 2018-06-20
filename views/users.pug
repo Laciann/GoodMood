@@ -1,7 +1,28 @@
 extends admin
+block content
   h1 UserList
-  p Below you will see list of users.
-  br
-  each user in users
-    p= user.name + " " + user.surname + "  "
-    a(href='/deleteuser/' + user.id) Delete
+
+  
+  #table-wrapper
+      table#desc
+        tr
+          th username
+          th email
+          th isAdmin
+          th make Admin 
+          th remove Admin
+        each user in users
+          tr
+            td= user.name
+            td= user.email
+            td= user.isAdmin
+            td 
+              button.green Grant
+            td
+              button.red Revoke
+           
+
+          
+    
+  
+    
