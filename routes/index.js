@@ -2,7 +2,6 @@
 
 const mongoose = require('mongoose');
 const user = mongoose.model('User');
-const Store = mongoose.model('Store');
 const express = require('express');
 const router = express.Router();
 const storeController = require('../controllers/storeController');
@@ -17,9 +16,7 @@ router.get('/', catchErrors(storeController.getStores));
 router.get('/stores', catchErrors(storeController.getStores));
 router.get('/stores/page/:page', catchErrors(storeController.getStores));
 router.get('/add', storeController.addStore);
-router.get('/red', function(req,res){
-  res.redirect(`/stores/${store._id}/edit`);
-});
+
 
 // load all users
 router.get('/users', function (req, res) {
