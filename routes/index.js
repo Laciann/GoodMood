@@ -2,6 +2,8 @@
 
 const mongoose = require('mongoose');
 const user = mongoose.model('User');
+const store = mongoose.model('Store');
+const review = mongoose.model('Review');
 const express = require('express');
 const router = express.Router();
 const storeController = require('../controllers/storeController');
@@ -17,6 +19,8 @@ router.get('/stores', catchErrors(storeController.getStores));
 router.get('/stores/page/:page', catchErrors(storeController.getStores));
 router.get('/add', storeController.addStore);
 
+//LYANG
+router.get('/lyang', catchErrors(storeController.getBahiraKoRatings));
 
 // load all users
 router.get('/users', function (req, res) {

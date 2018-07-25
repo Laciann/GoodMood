@@ -18,6 +18,11 @@ const storeSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  rating:{
+    type:String,
+    default: " Not rated yet! ☠ "
+    
+  },
   location: {
     type: {
       type: String,
@@ -95,6 +100,8 @@ storeSchema.statics.getTagsList = function () {
   ]);
 };
 
+
+
 storeSchema.statics.getTopStores = function () {
   return this.aggregate([
     // Lookup Stores and populate their reviews
@@ -126,6 +133,7 @@ storeSchema.statics.getTopStores = function () {
         }
       }
     },
+    
     // sort it by our new field, highest reviews first
     {
       $sort: {
@@ -138,6 +146,46 @@ storeSchema.statics.getTopStores = function () {
     }
   ]);
 };
+
+//get ratings
+storeSchema.statics.getHomeRatings = function () {
+  return this.aggregate([
+    // Lookup Stores and populate their reviews
+    {
+      $lookup: {
+        from: 'reviews',
+        localField: '_id',
+        foreignField: 'store',
+        as: 'reviews'
+      }
+    },
+    // filter for only items that have 2 or more reviews
+   // {
+      //$match: {
+      //  'reviews.1': {
+      //    $exists: true
+     // //  }
+    //  }
+   // },
+    // Add the average reviews field
+    {
+      $project: {
+        averageRating: {
+          $avg: '$reviews.rating'
+        }
+      }
+    }
+  ]);
+};
+
+
+// find reviews where the stores _id property === reviews store property
+storeSchema.virtual('reviews', {
+  ref: 'Review', // what model to link?
+  localField: '_id', // which field on the store?
+  foreignField: 'store' // which field on the review?
+});
+
 
 // find reviews where the stores _id property === reviews store property
 storeSchema.virtual('reviews', {

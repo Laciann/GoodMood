@@ -60,18 +60,20 @@ exports.createStore = async (req, res) => {
 };
 
 exports.getStores = async (req, res) => {
+
+  const homeRatings = await Store.getHomeRatings();   
   const page = req.params.page || 1;
   const limit = 4;
   const skip = (page * limit) - limit;
-
   // 1. Query the database for a list of all stores
   const storesPromise = Store
-    .find()
-    .skip(skip)
-    .limit(limit)
+    
+     .find()
+     .skip(skip)
+     .limit(limit)
     .sort({
-      created: 'desc'
-    });
+    created: 'desc'
+     });
 
   const countPromise = Store.count();
 
@@ -83,6 +85,7 @@ exports.getStores = async (req, res) => {
     return;
   }
 
+  
   res.render('stores', {
     title: 'Stores',
     stores,
@@ -91,6 +94,7 @@ exports.getStores = async (req, res) => {
     count
   });
 };
+
 
 const confirmOwner = (store, user) => {
   if (!store.author.equals(user._id)) {
@@ -240,5 +244,5 @@ exports.getTopStores = async (req, res) => {
   res.render('topStores', {
     stores,
     title: '⭐ Top Stores!'
-  });
+  });  
 };

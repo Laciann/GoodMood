@@ -17,9 +17,10 @@ block content
             td= user.email
             td= user.isAdmin
             td 
-              button.green Grant
+             
+                 a.green(href="/#{url}")  Grant
             td
-              button.red Revoke
+                 a.red(href="/#{url}") Revoke
            
 
           
