@@ -61,7 +61,7 @@ exports.createStore = async (req, res) => {
 
 exports.getStores = async (req, res) => {
 
-  const homeRatings = await Store.getHomeRatings();   
+  const homeRating = Store.getHomeRatings();   
   const page = req.params.page || 1;
   const limit = 4;
   const skip = (page * limit) - limit;
@@ -77,7 +77,7 @@ exports.getStores = async (req, res) => {
 
   const countPromise = Store.count();
 
-  const [stores, count] = await Promise.all([storesPromise, countPromise]);
+  const [stores, count, homeRatings] = await Promise.all([storesPromise, countPromise, homeRating]);
   const pages = Math.ceil(count / limit);
   if (!stores.length && skip) {
     req.flash('info', `Hey! You asked for page ${page}. But that doesn't exist. So I put you on page ${pages}`);
@@ -91,7 +91,8 @@ exports.getStores = async (req, res) => {
     stores,
     page,
     pages,
-    count
+    count,
+    homeRating
   });
 };
 
