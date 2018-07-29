@@ -14,14 +14,29 @@ const storeSchema = new mongoose.Schema({
     trim: true
   },
   tags: [String],
+  price: {
+    type: String,
+    default: "Information not available!"
+  },
+  cusine: {
+    type: String,
+    default: "Information not available!"
+  },
+  meal: {
+    type: String,
+    default: "Information not available!"
+  },
+  goodFor: {
+    type: String,
+    default: "Information not available!"
+  },
+  features: {
+    type: String,
+    default: "Information not available!"
+  },
   created: {
     type: Date,
     default: Date.now
-  },
-  rating:{
-    type:String,
-    default: " Not rated yet! ☠ "
-    
   },
   location: {
     type: {
@@ -157,6 +172,10 @@ storeSchema.statics.getHomeRatings = function () {
         localField: '_id',
         foreignField: 'store',
         as: 'reviews'
+      }
+    }, {
+      $sort: {
+        created: -1
       }
     },
     // filter for only items that have 2 or more reviews

@@ -1,4 +1,4 @@
-mixin storeCard(store = {}, index)
+mixin storeCard(store = {})
   .store
     .store__hero
       .store__actions
@@ -23,7 +23,4 @@ mixin storeCard(store = {}, index)
         a(href=`/store/${store.slug}`) #{store.name}
     .store__details
       p= store.description.split(' ').slice(0, 25).join(' ')
-      br
-      .review__stars(title=`Rated ${homeRatings[index].averageRating} our of 5 stars`)
-        = `★`.repeat(Math.round(homeRatings[index].averageRating))
-        = `☆`.repeat(Math.round(5 - homeRatings[index].averageRating))
+  

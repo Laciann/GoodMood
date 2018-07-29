@@ -19,8 +19,7 @@ router.get('/stores', catchErrors(storeController.getStores));
 router.get('/stores/page/:page', catchErrors(storeController.getStores));
 router.get('/add', storeController.addStore);
 
-//LYANG
-router.get('/lyang', catchErrors(storeController.getBahiraKoRatings));
+
 
 // load all users
 router.get('/users', function (req, res) {

@@ -18,6 +18,18 @@ mixin storeForm(store = {})
     input(type="text" id="lng" name="location[coordinates][0]" value=(store.location && store.location.coordinates[0]) required)
     label(for="lat") Address Lat
     input(type="text" id="lat" name="location[coordinates][1]" value=(store.location && store.location.coordinates[1]) required)
+    label(for="price") Average prices
+    input(type="text" id="price" name="price" value=(store.price) required)
+    label(for="cusine") Cusine
+    input(type="text" id="cusine" name="cusine" value=(store.cusine) required)
+    label(for="meals") Meals
+    input(type="text" id="meals" name="meals" value=(store.meal) required)
+    label(for="feat") Resturant features
+    input(type="text" id="feat" name="feat" value=(store.features) required)
+    label(for="goodfor") Good For
+    input(type="text" id="goodfor" name="goodfor" value=(store.goodFor) required)
+    label(for="open") Description
+    textarea(name="open")= store.description
     - const choices = ['Wifi', 'Open Late', 'Family Friendly', 'Vegatarian', 'Licensed']
     - const tags = store.tags || []
     ul.tags

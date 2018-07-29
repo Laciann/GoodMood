@@ -61,9 +61,11 @@ exports.createStore = async (req, res) => {
 
 exports.getStores = async (req, res) => {
 
-  const homeRating = Store.getHomeRatings();   
+  const homeRatings = await Store.getHomeRatings(); 
+  var yo = 0;
+
   const page = req.params.page || 1;
-  const limit = 4;
+  const limit = 6;
   const skip = (page * limit) - limit;
   // 1. Query the database for a list of all stores
   const storesPromise = Store
@@ -76,8 +78,9 @@ exports.getStores = async (req, res) => {
      });
 
   const countPromise = Store.count();
+  
 
-  const [stores, count, homeRatings] = await Promise.all([storesPromise, countPromise, homeRating]);
+  const [stores, count] = await Promise.all([storesPromise, countPromise]);
   const pages = Math.ceil(count / limit);
   if (!stores.length && skip) {
     req.flash('info', `Hey! You asked for page ${page}. But that doesn't exist. So I put you on page ${pages}`);
@@ -92,7 +95,7 @@ exports.getStores = async (req, res) => {
     page,
     pages,
     count,
-    homeRating
+    homeRatings
   });
 };
 
@@ -101,6 +104,7 @@ const confirmOwner = (store, user) => {
   if (!store.author.equals(user._id)) {
     throw Error('You must own a store in order to edit it!');
   }
+
 };
 
 exports.editStore = async (req, res) => {
@@ -234,7 +238,7 @@ exports.getHearts = async (req, res) => {
       $in: req.user.hearts
     }
   });
-  res.render('stores', {
+  res.render('heartedStores', {
     title: 'Hearted Stores',
     stores
   });
