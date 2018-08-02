@@ -17,10 +17,11 @@ block content
             td= user.email
             td= user.isAdmin
             td 
-             
-                 a.green(href="/#{url}")  Grant
+           
+                
+                 a(onclick="return confirm('Are you sure?')" href=`users/${user._id}/grant`).green Grant
             td
-                 a.red(href="/#{url}") Revoke
+                 a(onclick="return confirm('Are you sure?')" href=`users/${user._id}/revoke`).red Revoke
            
 
           

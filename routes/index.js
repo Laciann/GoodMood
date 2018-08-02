@@ -27,6 +27,34 @@ router.get('/users', function (req, res) {
     res.render('users', { users: users });
   });
 });
+
+//grant
+router.get('/users/:id/grant', function (req, res) {
+  let id = req.params.id;
+  user.findById(id, function (err, user) {
+    if (err) return handleError(err);
+
+    user.set({ isAdmin: 1 });
+    user.save(function (err, user) {
+      if (err) return handleError(err);
+      res.redirect("/users");
+    });
+  });
+});
+
+//revoke
+router.get('/users/:id/revoke', function (req, res) {
+  let id = req.params.id;
+  user.findById(id, function (err, user) {
+    if (err) return handleError(err);
+
+    user.set({ isAdmin: 0 });
+    user.save(function (err, user) {
+      if (err) return handleError(err);
+      res.redirect("/users");
+    });
+  });
+});
 //  admin page ko  lagi lyang lyang
 router.get('/admin', function (req, res) {
   if (req.user.isAdmin === true) 

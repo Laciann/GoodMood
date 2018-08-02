@@ -5,6 +5,9 @@ const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
 
+
+
+
 const multerOptions = {
   storage: multer.memoryStorage(),
   fileFilter (req, file, next) {
@@ -65,7 +68,7 @@ exports.getStores = async (req, res) => {
   var yo = 0;
 
   const page = req.params.page || 1;
-  const limit = 6;
+  const limit = 12;
   const skip = (page * limit) - limit;
   // 1. Query the database for a list of all stores
   const storesPromise = Store
@@ -171,11 +174,12 @@ exports.getStoresByTag = async (req, res) => {
 };
 
 exports.searchStores = async (req, res) => {
+  
   const stores = await Store
     // first find stores that match
-    .find({
+    .find({ 
       $text: {
-        $search: req.query.q
+        $search: req.query.q 
       }
     }, {
       score: {

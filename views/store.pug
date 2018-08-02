@@ -13,8 +13,25 @@ block content
   .single__details.inner
     img.single__map(src=h.staticMap(store.location.coordinates))
     p.single__location= store.location.address
-    p= store.description
-
+    
+      p <strong> Meals </strong> 
+      p #{store.meal} 
+      br
+      p <strong> Cusine </strong>  
+      p #{store.cusine}  
+      br 
+      p <strong>Price</strong> 
+      p #{store.price}
+      br
+      p <strong>Good For</strong> 
+      p #{store.goodFor}  
+      br
+      p <strong>Features</strong> 
+      p #{store.features}
+      br
+      p <strong>Description</strong>
+      p= store.description
+     
     if store.tags
       ul.tags
         each tag in store.tags

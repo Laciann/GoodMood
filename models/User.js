@@ -20,12 +20,15 @@ const userSchema = new Schema({
     required: 'Please supply a name',
     trim: true
   },
+  isAdmin: {
+    type:Boolean,
+    default:false
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   hearts: [
     { type: mongoose.Schema.ObjectId, ref: 'Store' }
-  ],
-  isAdmin: false
+  ]
 });
 
 userSchema.virtual('gravatar').get(function () {

@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const slug = require('slugs');
+const mexp = require('mongoose-elasticsearch-xp');
+const elasticsearch = require('elasticsearch');
+const esClient = new elasticsearch.Client({
+  host: '127.0.0.1:7777',
+  log: 'error'
+});
 
 const storeSchema = new mongoose.Schema({
   name: {
@@ -220,5 +226,7 @@ function autopopulate (next) {
 
 storeSchema.pre('find', autopopulate);
 storeSchema.pre('findOne', autopopulate);
+
+storeSchema.plugin(mexp);
 
 module.exports = mongoose.model('Store', storeSchema);

@@ -28,8 +28,6 @@ mixin storeForm(store = {})
     input(type="text" id="features" name="features" value=(store.features) required)
     label(for="goodFor") Good For
     input(type="text" id="goodFor" name="goodFor" value=(store.goodFor) required)
-    label(for="open") Description
-    textarea(name="open")= store.description
     - const choices = ['Wifi', 'Open Late', 'Family Friendly', 'Vegatarian', 'Licensed']
     - const tags = store.tags || []
     ul.tags
